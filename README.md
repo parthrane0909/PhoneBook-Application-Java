@@ -224,23 +224,6 @@ Tables:
 
 Hibernate `ddl-auto=update` creates or updates this schema on startup. Hibernate messages such as `constraint "uk_contacts_phone_number" does not exist, skipping` appear when it tries to drop an old constraint name before creating the current one. On a fresh database they are harmless. Do not point this backend at an unrelated database on port 5432.
 
-## Troubleshooting
-
-**`Unable to save contact` / Playwright modal stays open**  
-Confirm `GET http://localhost:8000/` returns `{"message":"Phonebook API is running"}`. A different process on port 8000 (for example another FastAPI app) will make Vite proxy create/list/metrics calls fail.
-
-**Vite `/api` returns 502**  
-The Java backend is not running on port 8000.
-
-**Docker Compose fails on port 5432**  
-Another Postgres is bound to 5432. Set `POSTGRES_PORT` in `.env` to a free port.
-
-**Java 17 / no Maven on the host**  
-Use Docker Compose for the API, or `backend/mvnw.cmd` which can run Maven in Docker.
-
-**Playwright cannot start Chromium**  
-`cd playwright && npx playwright install chromium`
-
 ## Java port notes
 
 This repository is a port, not a redesign:

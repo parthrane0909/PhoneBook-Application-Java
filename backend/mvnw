@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+cd "$(dirname "$0")"
+
+if command -v mvn >/dev/null 2>&1; then
+  exec mvn "$@"
+fi
+
+if command -v docker >/dev/null 2>&1; then
+  exec docker run --rm -v "$PWD:/app" -w /app maven:3.9-eclipse-temurin-21 mvn "$@"
+fi
+
+echo "Maven is not installed, and Docker is not available to run Maven."
+echo "Install Java 21 + Maven, or install Docker Desktop, then retry."
+exit 1
